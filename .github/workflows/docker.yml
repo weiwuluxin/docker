@@ -4,30 +4,6 @@ on:
   release:
     types: [published]
 
-name: Build and Script
-on:
-  push:
-    branches:
-      - master
-name: Build and Script
-on:
-  push:
-    branches:
-      - master
-jobs:
-  build:
-    runs-on: [ubuntu-latest]
-    steps:
-    - name: checkout code
-      uses: actions/checkout@v2
-    - name: "executing remote ssh commands using ssh key"
-      uses: appleboy/ssh-action@master
-      with:
-        host: '${{ secrets.HOST }}'
-        username: '${{ secrets.USERNAME }}'
-        password: '${{ secrets.PASSWORD }}'
-        port: '${{ secrets.PORT }}'
-        script: whoami
 
 jobs:
   push_to_registry:
