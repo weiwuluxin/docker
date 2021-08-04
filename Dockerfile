@@ -1,4 +1,4 @@
-FROM pytorch/pytorch:1.7.0-cuda11.0-cudnn8-runtime
+FROM nvidia/cuda:11.0.3-devel-ubuntu18.04
 
 # Install required dependencies
 RUN apt-get update && apt-get install -y --allow-downgrades --allow-change-held-packages libxml2 libopenblas-dev libgflags-dev git build-essential  python3-dev python3-numpy python3-pip wget swig libgtest-dev
@@ -37,7 +37,7 @@ RUN cd /usr/src/gtest/ && cmake . && make && cp *.a /usr/lib/
 
 # Install FAISS
 RUN git clone https://github.com/facebookresearch/faiss.git
-RUN cd faiss && git checkout v1.6.5 && mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Release  && make -j8 && make install
+RUN cd faiss && git checkout v1.6.5 && mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CUDA_ARCHITECTURES="35;37;50;52;60;61;70;75;80" && make -j8 && make install
 
 # Install python libraries
 RUN pip3 install twine
@@ -50,6 +50,8 @@ WORKDIR /tsnecuda/build
 RUN chmod +x ../packaging/build_and_deploy.sh
 CMD /bin/bash -c "../packaging/build_and_deploy.sh 11.0"
 
+
+FROM pytorch/pytorch:1.7.0-cuda11.0-cudnn8-runtime
 
 RUN apt-get update && apt-get install vim -y
 RUN apt-get install psmisc
