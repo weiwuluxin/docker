@@ -1,4 +1,4 @@
-FROM nvidia/cuda:10.1-devel-ubuntu18.04
+FROM pytorch/pytorch:1.6.0-cuda10.1-cudnn7-devel
 
 # Install required dependencies
 RUN apt-get update && apt-get install -y --allow-downgrades --allow-change-held-packages libxml2 libopenblas-dev libgflags-dev git build-essential  python3-dev python3-numpy python3-pip wget swig libgtest-dev
@@ -46,10 +46,6 @@ RUN pip3 install twine
 # Build tsnecuda
 ADD ./ /tsnecuda/
 WORKDIR /tsnecuda/build
-
-# Build python package
-RUN chmod +x ../packaging/build_and_deploy.sh
-CMD /bin/bash -c "../packaging/build_and_deploy.sh 10.1"
 
 
 
