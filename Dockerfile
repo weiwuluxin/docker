@@ -37,7 +37,7 @@ RUN cd /usr/src/gtest/ && cmake . && make && cp *.a /usr/lib/
 
 # Install FAISS
 RUN git clone https://github.com/facebookresearch/faiss.git
-RUN cd faiss && git checkout v1.6.5 && mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CUDA_ARCHITECTURES="35;37;50;52;60;61;70;75;80;86" && make -j8 && make install
+RUN cd faiss && git checkout v1.6.5 && mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Release  && make -j8 && make install
 
 # Install python libraries
 RUN pip3 install twine
